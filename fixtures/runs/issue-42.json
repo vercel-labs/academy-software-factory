@@ -1,0 +1,40 @@
+{
+  "workOrderId": "issue-42",
+  "issue": {
+    "number": 42,
+    "title": "Uppercase channel names fail",
+    "url": "https://github.com/signalworks/notification-sdk/issues/42"
+  },
+  "events": [
+    {
+      "station": "intake",
+      "status": "received",
+      "summary": "Created a work order from GitHub issue #42."
+    },
+    {
+      "station": "router",
+      "status": "routed",
+      "summary": "Sent an actionable, medium-risk bug to the bug lane."
+    },
+    {
+      "station": "investigator",
+      "status": "investigating",
+      "summary": "Reproduced the failure with channel SLACK and wrote a specification."
+    },
+    {
+      "station": "builder",
+      "status": "building",
+      "summary": "Implemented channel normalization on factory/bug-normalize-channel-names."
+    },
+    {
+      "station": "verifier",
+      "status": "verifying",
+      "summary": "Checked the diff and reran the notification SDK tests."
+    },
+    {
+      "station": "orchestrator",
+      "status": "ready-for-draft-pr",
+      "summary": "Approved the evidence package for a draft pull request."
+    }
+  ]
+}
