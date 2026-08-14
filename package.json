@@ -1,0 +1,32 @@
+{
+  "name": "signalworks-software-factory",
+  "version": "0.0.0",
+  "private": true,
+  "description": "A risk-routed software factory built with eve and AI SDK.",
+  "type": "module",
+  "scripts": {
+    "build": "eve build",
+    "dev": "eve dev",
+    "eval": "eve eval",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "validate": "pnpm typecheck && pnpm test && eve info"
+  },
+  "dependencies": {
+    "@github-tools/eve-extension": "0.3.2",
+    "@vercel/connect": "0.8.0",
+    "ai": "7.0.63",
+    "eve": "0.37.0",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "24.13.3",
+    "typescript": "7.0.2",
+    "vitest": "4.0.18"
+  },
+  "engines": {
+    "node": "24.x"
+  },
+  "packageManager": "pnpm@10.19.0"
+}
+

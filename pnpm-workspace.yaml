@@ -1,0 +1,11 @@
+packages:
+  - packages/*
+
+minimumReleaseAge: 1440
+minimumReleaseAgeExclude:
+  - "@ai-sdk/*"
+  - "@vercel/*"
+  - ai
+  - eve
+  - typescript
+
