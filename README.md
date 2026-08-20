@@ -1,6 +1,6 @@
 # Academy Software Factory
 
-This is the project for the Vercel Academy course **Build a Trustworthy Software Factory**.
+This is the project for the Vercel Academy course **Creating a Software Factory**.
 
 ## Branches
 
