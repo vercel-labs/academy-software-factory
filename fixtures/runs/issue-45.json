@@ -1,0 +1,31 @@
+{
+  "workOrderId": "issue-45",
+  "issue": {
+    "number": 45,
+    "title": "Add delivery priority",
+    "url": "https://github.com/signalworks/notification-sdk/issues/45"
+  },
+  "outcome": "human-judgment",
+  "events": [
+    {
+      "station": "intake",
+      "status": "received",
+      "summary": "Created a work order from GitHub issue #45."
+    },
+    {
+      "station": "router",
+      "status": "routed",
+      "summary": "Sent a high-risk exported API change to investigation."
+    },
+    {
+      "station": "investigator",
+      "status": "investigating",
+      "summary": "Documented the exported type change and compatibility requirements."
+    },
+    {
+      "station": "orchestrator",
+      "status": "awaiting-approval",
+      "summary": "Paused before implementation for a human compatibility decision."
+    }
+  ]
+}

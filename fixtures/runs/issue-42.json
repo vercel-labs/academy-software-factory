@@ -5,6 +5,7 @@
     "title": "Uppercase channel names fail",
     "url": "https://github.com/signalworks/notification-sdk/issues/42"
   },
+  "outcome": "fix",
   "events": [
     {
       "station": "intake",

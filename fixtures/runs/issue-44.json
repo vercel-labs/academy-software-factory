@@ -1,0 +1,31 @@
+{
+  "workOrderId": "issue-44",
+  "issue": {
+    "number": 44,
+    "title": "Empty messages are delivered",
+    "url": "https://github.com/signalworks/notification-sdk/issues/44"
+  },
+  "outcome": "reject-premise",
+  "events": [
+    {
+      "station": "intake",
+      "status": "received",
+      "summary": "Created a work order from GitHub issue #44."
+    },
+    {
+      "station": "router",
+      "status": "routed",
+      "summary": "Sent an actionable bug report to investigation."
+    },
+    {
+      "station": "investigator",
+      "status": "investigating",
+      "summary": "A focused probe showed whitespace-only messages already throw the expected validation error."
+    },
+    {
+      "station": "orchestrator",
+      "status": "stopped",
+      "summary": "Stopped without a code change because repository evidence contradicted the issue."
+    }
+  ]
+}

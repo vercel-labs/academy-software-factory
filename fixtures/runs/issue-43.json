@@ -1,0 +1,26 @@
+{
+  "workOrderId": "issue-43",
+  "issue": {
+    "number": 43,
+    "title": "Clarify webhook retries",
+    "url": "https://github.com/signalworks/notification-sdk/issues/43"
+  },
+  "outcome": "clarify",
+  "events": [
+    {
+      "station": "intake",
+      "status": "received",
+      "summary": "Created a work order from GitHub issue #43."
+    },
+    {
+      "station": "router",
+      "status": "needs-clarification",
+      "summary": "The request does not identify what the current docs get wrong."
+    },
+    {
+      "station": "orchestrator",
+      "status": "stopped",
+      "summary": "Asked which retry behavior and documentation section should change."
+    }
+  ]
+}
