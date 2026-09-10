@@ -3,7 +3,11 @@
     "allowJs": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2023",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "noEmit": true,
@@ -12,8 +16,16 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "ES2023",
-    "types": ["node", "vitest/globals"]
+    "types": [
+      "node",
+      "vitest/globals"
+    ]
   },
-  "include": ["agent/**/*.ts", "evals/**/*.ts", "packages/**/*.ts"]
+  "include": [
+    "agent/**/*.ts",
+    "evals/**/*.ts",
+    "packages/**/*.ts",
+    "fixtures/approval-runtime/agent/**/*.ts",
+    "fixtures/approval-runtime/evals/**/*.ts"
+  ]
 }
-

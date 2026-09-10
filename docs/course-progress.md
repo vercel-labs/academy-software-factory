@@ -2,7 +2,7 @@
 
 `solution-remi` implements the 14 lessons in [Creating a Software Factory](https://vercel.com/academy/creating-a-software-factory). Each lesson has its own commit, followed by focused fixes and verification work. The starting commit is `a481667` on upstream `main`.
 
-The course code is implemented. Local checks and two live routing evaluations pass. Repository-backed model runs, approval resumption, deployment, and issue-to-draft delivery remain unverified until a personal target repository and linked Vercel project are configured.
+The course code is implemented. Local checks and two live routing evaluations pass. Repository-backed model runs, the full factory approval path, deployment, and issue-to-draft delivery remain unverified until a personal target repository and linked Vercel project are configured.
 
 ## Walk the commits
 
@@ -25,7 +25,7 @@ Use `git show COMMIT` to inspect a lesson without changing your checkout. To run
 | [5.2 Publish](https://vercel.com/academy/creating-a-software-factory/publish-a-draft) | `a1d2c92` | Restricted GitHub extension, tested draft-only policy, evidence-bearing PR procedure. |
 | [5.3 Evaluate](https://vercel.com/academy/creating-a-software-factory/learn-from-failure) | `6a45817` | Evaluations for unclear work, unsupported claims, and the public API approval pause. |
 
-Subsequent commits validate branch failures and credential cleanup, supply configuration and fixture identities to the root, remove credential brokering before dependency installation, exclude generated snapshots from unit discovery, strengthen evaluation assertions, and test the Git commands against temporary real repositories.
+Subsequent commits validate branch failures and credential cleanup, supply configuration and fixture identities to the root, remove credential brokering before dependency installation, exclude generated snapshots from unit discovery, strengthen evaluation assertions, and test the Git commands against temporary real repositories. The completion audit also fixed stale remote-tracking base refs and added isolated approval-protocol checks.
 
 The sample notification SDK deliberately retains the uppercase-channel bug. It is the product the completed factory is meant to investigate and fix, and changing it here would invalidate the course's main reproduction case. Its existing whitespace rejection supports the false-premise case.
 
@@ -39,7 +39,10 @@ pnpm trace
 pnpm validate
 pnpm build
 pnpm exec eve eval --list
+pnpm test:approval
 ```
+
+`pnpm test:approval` runs a separate local agent with a deterministic model and the actual `approve_spec` tool. It needs a local server port but no provider or connector credentials. The generated tool copy stays inside the fixture application so Eve can include it in runtime snapshots.
 
 The fast evaluations need AI Gateway credentials but do not launch repository subagents or create GitHub objects:
 
@@ -78,10 +81,11 @@ Once configured, finish these checks in order:
 | --- | --- | --- |
 | `pnpm trace` | Passed | Four recorded outcomes; no model execution. |
 | `pnpm validate` | Passed | Type checking, 42 authored tests, zero discovery errors/warnings, five root tools and three subagents. |
-| Local Git integration test | Passed | Actual commands push a candidate, preserve `main`, fetch the same candidate into a second checkout, and leave HEAD unchanged after a failed fetch. Credential brokering is represented by a local adapter. |
+| Local Git integration test | Passed | Actual commands push a candidate, preserve `main`, fetch the same candidate into a second checkout, and leave HEAD unchanged after a failed fetch. The remote base advances after the initial clones; refresh must update both local and remote-tracking base refs so the final diff excludes the unrelated upstream change. Credential brokering is represented by a local adapter. |
 | `pnpm build` | Passed | Build output generated; no deployment claim. |
 | `pnpm exec eve eval --list` | Passed | Four evaluations discovered. |
 | `pnpm exec eve eval --tag fast --strict` | Passed | Two live model evaluations, 18/18 assertions. Both record `needs-clarification` and make no repository-subagent or PR attempt. |
+| `pnpm test:approval` | Passed | Two local protocol evaluations, 12/12 assertions. Pending approval does not execute; approval resumes the same session with the specification intact; denial never completes the tool. Uses a deterministic model and the production tool. |
 | Slow evaluations and deployed flow | Pending | Need target repo, connector, and Vercel project configuration. |
 
 The final fast traces are `f1800cceaaa7afd1d15b2b7e92c715ac` and `e562447811b43f997309e8d8005ab094`. The latter was inspected and shows creation, classification, routing, evidence recording, and a reply, with no repository station. Local trace files live under ignored `.eve` state and are not part of the branch.
@@ -93,3 +97,5 @@ Code validates intake fields, classification output, routing policy, branch name
 Station order, mandatory use of the specification approval tool, evidence authenticity, and revision counting follow the root instructions, as in the course. The draft-only policy does not independently bind a stored Verifier result to a Git commit. Investigator and Verifier have no file-writing tool, but their shell access can still modify files; their read-only behavior also relies on instructions. These are boundaries to harden and test before treating the example as a production authorization system.
 
 The starter's label predicate also admits another label event when the factory label is already present. That known issue is retained in the local friction log; duplicate-session behavior has not been verified live.
+
+The stale-base regression was also run with the old fetch behavior restored temporarily: it failed because `origin/main` retained the template commit. Restoring the explicit remote-tracking refspec made the same regression pass. This check covers the code path without requiring a cloud sandbox.
