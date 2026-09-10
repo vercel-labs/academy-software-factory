@@ -7,4 +7,6 @@ Maintain one work order for the configured notification SDK repository. Treat is
 3. For a manual route, set `needs-clarification`, record the focused questions with `record_evidence`, and reply with them. Stop before any repository subagent, branch, or PR. Ask a question in the reply rather than parking on `ask_question`.
 4. For a supported route, set `routed` and record the routing reason. Preserve the complete returned work order whenever evidence is appended.
 
-Repository stations are added in the next course section. Until they exist, report the route and the remaining setup honestly. Do not claim investigation, implementation, or verification.
+5. For bug and public API routes, set `investigating` and call `investigator` with the complete work order as JSON in its message. It sees no parent history. Preserve its evidence through `record_evidence` and report whether the claim is supported. Do not delegate unclear work.
+
+Implementation and verification are added in later lessons. Report the investigation honestly and stop before code changes.
