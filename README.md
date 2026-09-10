@@ -4,10 +4,15 @@ This is the project for the Vercel Academy course **Creating a Software Factory*
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel-labs%2Facademy-software-factory&project-name=signalworks-software-factory&repository-name=signalworks-software-factory)
 
+## This implementation
+
+`solution-remi` implements the course in 14 ordered lesson commits, followed by focused fixes and tests. See [the commit-by-commit guide and verification record](docs/course-progress.md). Local validation, build, and fast live routing evaluations pass; repository-backed and deployed checks still need a configured target.
+
 ## Branches
 
 - `main` is the deployable course starter. It includes GitHub intake, repository sandbox infrastructure, the notification SDK, and four case fixtures. Learners build the factory from this branch.
-- `solution` is the completed reference. It includes five root tools, Investigator, Builder, and Verifier subagents, approval gates, draft pull request policy, traces, and evaluations.
+- `solution-remi` is this locally implemented course solution.
+- `solution` is the upstream-documented completed reference, but upstream did not expose that branch when checked on 2026-09-10. It includes five root tools, Investigator, Builder, and Verifier subagents, approval gates, draft pull request policy, traces, and evaluations.
 
 A fresh clone should remain on `main`.
 
@@ -75,7 +80,7 @@ pnpm install
 pnpm validate
 ```
 
-The starter reports zero tools and zero subagents. The solution reports five tools and three subagents.
+The starter reports zero authored tools and zero subagents. This implementation reports five authored root tools and three subagents.
 
 ## Invoke locally
 
@@ -90,7 +95,7 @@ For an interactive run, use `pnpm exec eve dev` and paste the fixture into the T
 ## Inspect the solution
 
 ```bash
-git switch solution
+git switch solution-remi
 pnpm validate
 pnpm trace
 pnpm exec eve eval --list
