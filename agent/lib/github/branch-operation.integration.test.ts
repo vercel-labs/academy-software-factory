@@ -4,6 +4,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import type { SandboxCommandResult, SandboxNetworkPolicy } from "eve/sandbox";
 import { expect, it } from "vitest";
+import { refreshDefaultBranch } from "./repo-sandbox.js";
 import { runBranchOperation } from "./branch-operation.js";
 import { REMOTE_URL, REPO_DIR } from "./git-remote.js";
 
@@ -43,7 +44,18 @@ it("pushes and checks out a real Git candidate without changing main", async () 
     git(directory, "clone", "--bare", source, remote);
     git(directory, "clone", remote, builder);
     git(directory, "clone", remote, verifier);
+    const templateBase = git(remote, "rev-parse", "main");
+    writeFileSync(join(source, "upstream.txt"), "An unrelated change after template creation\n");
+    git(source, "add", "upstream.txt");
+    git(source, "commit", "-m", "advance base after template");
+    git(source, "push", remote, "main");
     const base = git(remote, "rev-parse", "main");
+    expect(base).not.toBe(templateBase);
+    expect(git(verifier, "rev-parse", "origin/main")).toBe(templateBase);
+    await refreshDefaultBranch(await dependencies(builder).getSandbox());
+    await refreshDefaultBranch(await dependencies(verifier).getSandbox());
+    expect(git(builder, "rev-parse", "main")).toBe(base);
+    expect(git(verifier, "rev-parse", "origin/main")).toBe(base);
     git(builder, "config", "user.name", "Course test");
     git(builder, "config", "user.email", "course@example.test");
     git(builder, "switch", "-c", "factory/fix");

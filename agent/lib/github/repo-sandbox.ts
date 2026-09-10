@@ -9,10 +9,11 @@ import {
   brokerPolicy,
   mintInstallationToken,
   REMOTE_URL,
+  REPO_DIR,
 } from "./git-remote.js";
 
 async function runOrThrow(
-  sandbox: SandboxSession,
+  sandbox: Pick<SandboxSession, "run">,
   command: string
 ): Promise<void> {
   const result = await sandbox.run({ command });
@@ -46,6 +47,13 @@ export async function repoBootstrap({
   }
 }
 
+export async function refreshDefaultBranch(sandbox: Pick<SandboxSession, "run">): Promise<void> {
+  await runOrThrow(
+    sandbox,
+    `branch=$(git -C ${REPO_DIR} symbolic-ref --short refs/remotes/origin/HEAD) && branch=\${branch#origin/} && git -C ${REPO_DIR} -c core.hooksPath=/dev/null fetch ${REMOTE_URL} "+refs/heads/$branch:refs/remotes/origin/$branch" && git -C ${REPO_DIR} -c core.hooksPath=/dev/null checkout -B "$branch" "refs/remotes/origin/$branch"`
+  );
+}
+
 export async function repoOnSession({
   use,
 }: SandboxSessionContext): Promise<void> {
@@ -57,10 +65,7 @@ export async function repoOnSession({
   const token = await mintInstallationToken(githubCredentials);
   await sandbox.setNetworkPolicy(brokerPolicy(token));
   try {
-    await runOrThrow(
-      sandbox,
-      `cd repo && branch=$(git symbolic-ref --short refs/remotes/origin/HEAD | sed 's|^origin/||') && git fetch ${REMOTE_URL} "$branch" && git checkout -B "$branch" FETCH_HEAD`
-    );
+    await refreshDefaultBranch(sandbox);
   } finally {
     await sandbox.setNetworkPolicy("allow-all");
   }
