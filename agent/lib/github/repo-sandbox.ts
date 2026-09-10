@@ -37,12 +37,12 @@ export async function repoBootstrap({
   await sandbox.setNetworkPolicy(brokerPolicy(token));
   try {
     await runOrThrow(sandbox, `git clone --depth 50 ${REMOTE_URL} repo`);
-    const setup = process.env.FACTORY_SETUP_COMMAND;
-    if (setup) {
-      await runOrThrow(sandbox, `cd repo && ${setup}`);
-    }
   } finally {
     await sandbox.setNetworkPolicy("allow-all");
+  }
+  const setup = process.env.FACTORY_SETUP_COMMAND;
+  if (setup) {
+    await runOrThrow(sandbox, `cd repo && ${setup}`);
   }
 }
 
