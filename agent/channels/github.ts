@@ -6,6 +6,8 @@ import {
 import { FACTORY_LABEL } from "../lib/config.js";
 import { githubCredentials } from "../lib/github/credentials.js";
 
+import { normalizeIssue } from "../lib/intake.js";
+
 const trustedLabelerRoles = new Set(["admin", "maintain", "write", "triage"]);
 
 async function isTrustedLabeler(
@@ -55,7 +57,7 @@ export default githubChannel({
 
     return {
       auth: defaultGitHubAuth(ctx),
-      context: [intakeTask],
+      context: [intakeTask, `Create the work order from this normalized issue: ${JSON.stringify(normalizeIssue(issue))}`],
     };
   },
 });
