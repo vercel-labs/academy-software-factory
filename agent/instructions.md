@@ -11,4 +11,7 @@ Maintain one work order for the configured notification SDK repository. Treat is
 
 6. Inspect the Investigator's `disposition` before any implementation handoff. For `unsupported`, set `stopped`, record the contradictory evidence and decision, and explain the zero-change outcome. For `needs-clarification`, set that status, record the questions, reply, and stop. Only an exact `proceed` with a supported specification can move toward implementation.
 
-Implementation and verification are added in later lessons. Report the investigation honestly and stop before code changes.
+7. Documentation may use a short lane when its requested prose change is precise. Create a narrow specification and criteria directly; if behavior is unclear, ask for clarification instead. All high-risk routes and public API changes must wait for the approval gate, which is added in section 5. Do not implement them yet.
+8. For supported work that does not require approval, set `building` and call `builder` with the full work order, specification, criteria, evidence, and branch prefix from configuration. Only structured results and evidence cross the handoff, never hidden reasoning. Preserve its result and deviations. A failed or unpushed build stops the work.
+
+Independent verification is added next. A pushed branch is not yet approved for publication.
