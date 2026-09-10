@@ -10,8 +10,8 @@ export default defineEval({
     t.calledSubagent("investigator");
     t.calledTool("approve_spec", { status: "pending" });
     t.requireInputRequest({ toolName: "approve_spec" });
-    t.calledSubagent("builder", { count: 0 });
-    t.calledSubagent("verifier", { count: 0 });
-    t.calledTool("github__createPullRequest", { count: 0 });
+    t.notCalledTool("builder");
+    t.notCalledTool("verifier");
+    t.notCalledTool("github__createPullRequest");
   },
 });

@@ -1,9 +1,9 @@
 import { defineEval } from "eve/evals";
 export default defineEval({
-  description: "A vague issue asks for clarification without launching repository work.",
+  description: "The bare documentation fixture resolves its course identity and asks for missing intent.",
   tags: ["fast", "routing"],
   async test(t) {
-    await t.send("Issue #91, https://github.com/example/sdk/issues/91. Notifications fail sometimes. Please fix whatever is wrong.");
+    await t.send("# Clarify webhook retries\n\nThe webhook retry docs are confusing. Please fix them.");
     t.succeeded();
     t.calledTool("create_work_order");
     t.calledTool("classify_issue");
