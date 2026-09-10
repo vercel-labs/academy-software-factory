@@ -1,6 +1,12 @@
 import { z } from "zod";
 export const investigationSchema = z.object({
   claimSupported: z.boolean(),
+  problemStatement: z.string(),
+  affectedFiles: z.array(z.string()),
+  approach: z.string(),
+  acceptanceCriteria: z.array(z.string()),
+  testStrategy: z.array(z.string()),
+  risks: z.array(z.string()),
   evidence: z.array(z.object({
     command: z.string().nullable(),
     result: z.string().min(1),
