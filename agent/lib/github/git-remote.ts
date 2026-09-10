@@ -1,6 +1,6 @@
 import type { GitHubChannelCredentials } from "eve/channels/github";
 import type { SandboxNetworkPolicy } from "eve/sandbox";
-import { FACTORY_REPO } from "../config.js";
+import { FACTORY_BRANCH_PREFIX, FACTORY_REPO } from "../config.js";
 
 const protectedBranches = new Set(["main", "master"]);
 const branchPattern = /^[A-Za-z0-9](?:[A-Za-z0-9._/-]*[A-Za-z0-9])?$/;
@@ -12,7 +12,8 @@ export function validateBranch(branch: string): string | null {
   if (
     !branchPattern.test(branch) ||
     branch.includes("..") ||
-    branch.includes("//")
+    branch.includes("//") ||
+    branch.split("/").some(part => part.startsWith(".") || part.endsWith(".lock"))
   ) {
     return `"${branch}" is not a valid branch name.`;
   }
@@ -21,6 +22,9 @@ export function validateBranch(branch: string): string | null {
   }
   if (protectedBranches.has(branch)) {
     return `Direct pushes to ${branch} are not allowed.`;
+  }
+  if (!branch.startsWith(FACTORY_BRANCH_PREFIX) || branch.length === FACTORY_BRANCH_PREFIX.length) {
+    return `Factory branches must begin with ${FACTORY_BRANCH_PREFIX} and include a name.`;
   }
   return null;
 }
